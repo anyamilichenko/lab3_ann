@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class DatabaseHelper {
@@ -25,9 +26,10 @@ public class DatabaseHelper {
     }
 
     public List<Shot> getAll() {
-        Session currentSession = manager.getCurrentSession();
-        currentSession.beginTransaction();
-        return currentSession.createQuery("FROM Shot ").list();
+        Session session = manager.openSession();
+        Query query = session.createQuery("FROM Shot ");
+        List<Shot> result = query.getResultList();
+        return result;
     }
 
 

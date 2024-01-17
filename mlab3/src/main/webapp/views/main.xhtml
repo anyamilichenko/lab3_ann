@@ -15,9 +15,12 @@
     <link type="Image/x-icon" href="sakura.png" rel="icon"/>
     <h:outputStylesheet library="styles" name="main.css"/>
     <p:remoteCommand immediate="true" name="setTimezone" action="${shotsBean.setTimezone()}"/>
+    <p:remoteCommand update="results panelGridPlot" immediate="true" name="update" action="#{shotsBean.updateShotsFromDb()}"/>
+
     <h:outputScript>
         window.onload = function () {
             setTimezone([{name: 'timezone', value: (new Date()).getTimezoneOffset()}]);
+            update();
             console.log((new Date()).getTimezoneOffset());
         }
     </h:outputScript>
@@ -100,11 +103,11 @@
             </p:column>
 
             <p:column id="table-currentTime" headerText="Текущее время" style="text-align: center;">
-                <h:outputText value="#{shot.currentTime}"/>
+                <h:outputText value="#{shot.cur_time}"/>
             </p:column>
 
             <p:column id="table-scriptTime" headerText="Время работы скрипта" style="text-align: center;">
-                <h:outputText value="#{shot.scriptTime}"/>
+                <h:outputText value="#{shot.script_time}"/>
             </p:column>
             <p:column id="table-status" headerText="Результат" style="text-align: center;">
                 <h:outputText value="#{shot.status}"/>
@@ -115,5 +118,6 @@
 <h:outputScript library="scripts" name="Validator.js"/>
 <h:outputScript library="scripts" name="GraphHadler.js"/>
 <h:outputScript src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
+
 </html>
 

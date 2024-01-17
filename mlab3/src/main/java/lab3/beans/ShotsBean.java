@@ -67,7 +67,7 @@ public class ShotsBean implements Serializable {
 
             shot = new Shot();
 
-
+        updateShotsFromDb();
         } else {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             HttpServletResponse response = (HttpServletResponse) context.getResponse();
@@ -115,4 +115,7 @@ public class ShotsBean implements Serializable {
     }
 
 
+    public void updateShotsFromDb() {
+        this.shotsList = databaseHelper.getAll();
+    }
 }
